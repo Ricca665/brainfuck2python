@@ -1,21 +1,24 @@
-+++++ +++++ initialize counter (cell #0) to 10
-[ set the next four cells to 70 100 30 and 10 respectively
-> +++++ ++ add 7 to cell #1
-> +++++ +++++ add 10 to cell #2
-> +++ add 3 to cell #3
-> + add 1 to cell #4
-<<<< - decrement counter (cell #0)
-]
-> ++ . print 'H' (H = ASC (72))
-> + . print 'e' (e = ASC (101))
-+++++ ++ . print 'l'
-. print 'l'
-+++ . print 'o'
-> ++ . print ' '
-<< +++++ +++++ +++++ . print 'W'
-> . print 'o'
-+++ . print 'r'
------ - . print 'l'
------ --- . print 'd'
-> + . print '!'
-> . print '\n'
+
+[ yet another pi calculation program in bf
+
+  Just like for pi16.b the accuracy of the result depends on the cellsize:
+	
+   - using  8 bit cells causes an overflow after 4 digits
+   - using 16 bit cells causes an overflow after 537 digits
+   - using 32 bit cells causes an overflow after several millions of digits
+	 
+  It's about ~38 times shorter than pi16.b, ~364 times faster and works with
+  not-wrapping (bignum) implementations. 
+	
+  by Felix Nawothnig (felix.nawothnig@t-online.de) ]
+
+>  +++++ +++++ +++++ (15 digits)
+
+[<+>>>>>>>>++++++++++<<<<<<<-]>+++++[<+++++++++>-]+>>>>>>+[<<+++[>>[-<]<[>]<-]>>
+[>+>]<[<]>]>[[->>>>+<<<<]>>>+++>-]<[<<<<]<<<<<<<<+[->>>>>>>>>>>>[<+[->>>>+<<<<]>
+>>>>]<<<<[>>>>>[<<<<+>>>>-]<<<<<-[<<++++++++++>>-]>>>[<<[<+<<+>>>-]<[>+<-]<++<<+
+>>>>>>-]<<[-]<<-<[->>+<-[>>>]>[[<+>-]>+>>]<<<<<]>[-]>+<<<-[>>+<<-]<]<<<<+>>>>>>>
+>[-]>[<<<+>>>-]<<++++++++++<[->>+<-[>>>]>[[<+>-]>+>>]<<<<<]>[-]>+>[<<+<+>>>-]<<<
+<+<+>>[-[-[-[-[-[-[-[-[-<->[-<+<->>]]]]]]]]]]<[+++++[<<<++++++++<++++++++>>>>-]<
+<<<+<->>>>[>+<<<+++++++++<->>>-]<<<<<[>>+<<-]+<[->-<]>[>>.<<<<[+.[-]]>>-]>[>>.<<
+-]>[-]>[-]>>>[>>[<<<<<<<<+>>>>>>>>-]<<-]]>>[-]<<<[-]<<<<<<<<]++++++++++.
