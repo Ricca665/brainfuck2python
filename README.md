@@ -1,11 +1,11 @@
--# brainfuck2python compiler
+# brainfuck2python compiler
 This is a silly project of mine that is like "what if you could convert brainfuck code, from an already
 slow language, into something even slower?"
 so i came up with this
 
 (based on the brainfuck.py interpreter made by pocmo!)
 
--# how 2 use
+# how 2 use
 ```
 python main.py ./file.bf
 python output.py
@@ -26,5 +26,7 @@ print(chr(memory[pointer]), end="")
 ```
 so of course it's a lot slower
 
-future features
+future planned features:
 - [ ] add more optimization options (0: nothing, 1: stuff like >>>>> gets turned into pointer += 5, 2: precompute memory and just execute the moving pointers part)
+
+in the repo, the file.bf also contains the example program that computes PI as a benchmark of some sorts
