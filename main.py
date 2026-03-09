@@ -43,7 +43,7 @@ def eval_step(code, data, code_pos, data_pos, out=sys.stdout.write):
     c = code[code_pos]
     d = data[data_pos]
     step = 1
-    #print(f"codepos{code_pos}")
+    #TODO: Optimize this so it automatically calculates everything AHEAD of time
     if c == '>':
         data_pos = data_pos + 1
         if data_pos > len(data):
@@ -54,27 +54,28 @@ def eval_step(code, data, code_pos, data_pos, out=sys.stdout.write):
     elif c == '<':
         if data_pos != 0:
             data_pos -= 1
-        lines.append("pointer -= 1")
+        lines.append(f"pointer -= {1}")
 
     elif c == '+':
         if d == 255:
             data[data_pos] = 0
         else:
             data[data_pos] += 1
-        lines.append("memory[pointer] += 1")
+        lines.append(f"memory[pointer] += {1}")
         lines.append("memory[pointer] = memory[pointer] % 256")
     elif c == '-':
         if d == 0:
             data[data_pos] = 255
         else:
             data[data_pos] -= 1
-        lines.append("memory[pointer] -= 1")
+        lines.append(f"memory[pointer] -= {1}")
         lines.append("memory[pointer] = memory[pointer] % 256")
     elif c == '.':
         out(chr(d))
         lines.append('print(chr(memory[pointer]), end="")')
     elif c == ',':
         data[data_pos] = ord(sys.stdin.read(1))
+        #TODO: Maybe optimize this???
         input_code=f"""
         a = input().split("")\n
         while len(a) <= 0:\n
@@ -103,19 +104,20 @@ def eval(code, data=[0 for i in range(9999)], d_pos=0):
 if len(sys.argv) < 2:
     print("usage: python brainfuck.py file.bf")
     exit(1)
-c_pos = 0
+
 python_file = open("output.py", "w")
 try:
-    lines = ["import sys; memory = [0]*30000; pointer=0"]
+    lines = ["import sys; memory = [0]*30000; pointer=0"] # init stuff
 
     with open(sys.argv[1], 'r') as infile:
         code = read(''.join(infile.readlines()))
         eval(code)
 
     for i in range(len(lines)):
-        lines[i] += "\n" # automatically add returns
-    python_file.writelines(lines)
-    python_file.close()
+        lines[i] += "\n" # automatically add new lines
+
+    python_file.writelines(lines) # write them to a file
+    python_file.close() # close
 
 except Exception as e:
     print(f"Error: {e}")
