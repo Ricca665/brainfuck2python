@@ -1,4 +1,4 @@
-from sys import stdin, stdout
+import sys
 
 
 def find_bracket(code, pos, bracket):
@@ -15,7 +15,6 @@ def find_bracket(code, pos, bracket):
 
     raise Exception("Could not find `{}``bracket\nPosition: {}"
                     .format(pair, pos))
-
 
 def prepare_code(code):
     def map_left_bracket(b, p):
@@ -40,7 +39,7 @@ def read(string):
     return prepare_code([c for c in string if c in valid])
 
 
-def eval_step(code, data, code_pos, data_pos, out=stdout.write):
+def eval_step(code, data, code_pos, data_pos, out=sys.stdout.write):
     c = code[code_pos]
     d = data[data_pos]
     step = 1
@@ -65,7 +64,7 @@ def eval_step(code, data, code_pos, data_pos, out=stdout.write):
     elif c == '.':
         out(chr(d))
     elif c == ',':
-        data[data_pos] = ord(stdin.read(1))
+        data[data_pos] = ord(sys.stdin.read(1))
     else:
         bracket, jmp = c
         if bracket == '[' and d == 0:
@@ -82,3 +81,15 @@ def eval(code, data=[0 for i in range(9999)], c_pos=0, d_pos=0):
     while c_pos < len(code):
         (data, c_pos, d_pos, step) = eval_step(code, data, c_pos, d_pos)
         c_pos += step
+
+if len(sys.argv) < 2:
+    print("usage: python brainfuck.py file.bf")
+    exit(1)
+
+try:
+    with open(sys.argv[1], 'r') as infile:
+        code = read(''.join(infile.readlines()))
+        eval(code)
+except:
+    print("invalid file or smth")
+    exit(1)
